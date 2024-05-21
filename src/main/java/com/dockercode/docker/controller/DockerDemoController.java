@@ -17,7 +17,7 @@ public class DockerDemoController {
 
     @PostMapping("saveEntity")
     @ResponseStatus(HttpStatus.CREATED)
-    public DockerEntity save (DockerEntity dockerEntity){
+    public DockerEntity save (@RequestBody DockerEntity dockerEntity){
 
         return dockerService.createEntity(dockerEntity);
     }
