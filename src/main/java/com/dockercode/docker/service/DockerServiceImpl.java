@@ -34,15 +34,21 @@ public class DockerServiceImpl implements DockerService{
     }
 
     @Override
-    public Optional<DockerEntity> getDockerEntityById(Integer id) {
+    public Optional<DockerEntity> getEntityById(Integer id) {
 
-         return dockerRepository.findById(id);
+        Optional <DockerEntity> isExisting = dockerRepository.findById(id);
+
+        if(isExisting.isPresent()){
+            return isExisting;
+        }else{
+            throw new EntityNotFoundException("Este ID no existe en la BD");
+        }
     }
 
     @Override
     public DockerEntity updateEntityByID(Integer id, DockerEntity dockerEntity) {
 
-        Optional <DockerEntity> isExisting = getDockerEntityById(id);
+        Optional <DockerEntity> isExisting = getEntityById(id);
 
         if(isExisting.isPresent()){
 
@@ -60,6 +66,14 @@ public class DockerServiceImpl implements DockerService{
 
     @Override
     public String deleteEntityById(Integer id) {
-        return null;
+
+        Optional <DockerEntity> isExisting = dockerRepository.findById(id);
+
+        if(isExisting.isPresent()){
+            dockerRepository.deleteById(id);
+            return "El ID" + id + " ha sido eliminado exitosamente";
+        }else{
+            throw new EntityNotFoundException("La entidad con dicho ID no existe en la BD");
+        }
     }
 }
