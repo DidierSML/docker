@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -29,5 +30,21 @@ public class DockerServiceImpl implements DockerService{
         List <DockerEntity> dockerEntityList = dockerRepository.findAll();
 
         return dockerEntityList;
+    }
+
+    @Override
+    public Optional<DockerEntity> getDockerEntityById(Integer id) {
+
+         return dockerRepository.findById(id);
+    }
+
+    @Override
+    public DockerEntity updateEntityByID(Integer id, DockerEntity dockerEntity) {
+        return null;
+    }
+
+    @Override
+    public String deleteEntityById(Integer id) {
+        return null;
     }
 }
