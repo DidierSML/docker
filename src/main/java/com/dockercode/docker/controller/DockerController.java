@@ -2,7 +2,6 @@ package com.dockercode.docker.controller;
 
 import com.dockercode.docker.entity.DockerEntity;
 import com.dockercode.docker.service.DockerServiceImpl;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -32,15 +31,9 @@ public class DockerController {
 
     @GetMapping("getEntityById/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public DockerEntity getEntityById (@PathVariable (value = "id") Integer id){
+    public Optional<DockerEntity> getEntityById (@PathVariable (value = "id") Integer id){
 
-        Optional <DockerEntity> object = dockerService.getDockerEntityById(id);
-
-        if(object.isPresent()){
-            return object.get();
-        }else{
-            throw new EntityNotFoundException("La entidad no existe en nuestra BD");
-        }
+        return dockerService.getEntityById(id);
     }
 
     @PutMapping("updateEntityById/{id}")
@@ -49,6 +42,14 @@ public class DockerController {
                                           @RequestBody DockerEntity dockerEntity){
 
         return dockerService.updateEntityByID(id, dockerEntity);
+    }
+
+    @DeleteMapping("deleteById/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteById (@PathVariable (value = "id") Integer id){
+
+        String message = dockerService.deleteEntityById(id);
+        return message;
     }
 
     @GetMapping("testAPI")

@@ -12,7 +12,7 @@ public interface DockerService {
 
     List<DockerEntity> getAllDockerEntities ();
 
-    Optional<DockerEntity> getDockerEntityById (Integer id);
+    Optional<DockerEntity> getEntityById (Integer id);
 
     DockerEntity updateEntityByID (Integer id, DockerEntity dockerEntity);
 
