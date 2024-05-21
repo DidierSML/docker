@@ -3,6 +3,7 @@ package com.dockercode.docker.service;
 
 import com.dockercode.docker.entity.DockerEntity;
 import com.dockercode.docker.repository.DockerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,21 @@ public class DockerServiceImpl implements DockerService{
 
     @Override
     public DockerEntity updateEntityByID(Integer id, DockerEntity dockerEntity) {
-        return null;
+
+        Optional <DockerEntity> isExisting = getDockerEntityById(id);
+
+        if(isExisting.isPresent()){
+
+            DockerEntity entityExisting = isExisting.get();
+
+            entityExisting.setCenterName(dockerEntity.getCenterName());
+            entityExisting.setCenterCountry(dockerEntity.getCenterCountry());
+
+            return dockerRepository.save(entityExisting);
+        }else{
+            throw new EntityNotFoundException("La entidad con dicho ID no existe en la BD");
+        }
+
     }
 
     @Override
