@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("docker")
-public class DockerDemoController {
+public class DockerController {
 
     private final DockerServiceImpl dockerService;
 
@@ -41,6 +41,14 @@ public class DockerDemoController {
         }else{
             throw new EntityNotFoundException("La entidad no existe en nuestra BD");
         }
+    }
+
+    @PutMapping("updateEntityById/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DockerEntity updateEntityById (@PathVariable (value = "id") Integer id,
+                                          @RequestBody DockerEntity dockerEntity){
+
+        return dockerService.updateEntityByID(id, dockerEntity);
     }
 
     @GetMapping("testAPI")
