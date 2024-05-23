@@ -48,8 +48,8 @@ public class DockerController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteById (@PathVariable (value = "id") Integer id){
 
-        String message = dockerService.deleteEntityById(id);
-        return message;
+        return dockerService.deleteEntityById(id);
+
     }
 
     @GetMapping("testAPI")
