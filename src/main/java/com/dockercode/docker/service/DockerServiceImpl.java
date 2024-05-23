@@ -71,7 +71,7 @@ public class DockerServiceImpl implements DockerService{
 
         if(isExisting.isPresent()){
             dockerRepository.deleteById(id);
-            return "El ID" + id + " ha sido eliminado exitosamente";
+            return "El ID" + id + " ha sido eliminado exitosamente" ;
         }else{
             throw new EntityNotFoundException("La entidad con dicho ID no existe en la BD");
         }
