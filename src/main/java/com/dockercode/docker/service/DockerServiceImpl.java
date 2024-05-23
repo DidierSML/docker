@@ -2,8 +2,8 @@ package com.dockercode.docker.service;
 
 
 import com.dockercode.docker.entity.DockerEntity;
+import com.dockercode.docker.exceptions.NotFoundCustomException;
 import com.dockercode.docker.repository.DockerRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +41,7 @@ public class DockerServiceImpl implements DockerService{
         if(isExisting.isPresent()){
             return isExisting;
         }else{
-            throw new EntityNotFoundException("Este ID no existe en la BD");
+            throw new NotFoundCustomException("Este ID no existe en la BD");
         }
     }
 
@@ -59,7 +59,7 @@ public class DockerServiceImpl implements DockerService{
 
             return dockerRepository.save(entityExisting);
         }else{
-            throw new EntityNotFoundException("La entidad con dicho ID no existe en la BD");
+            throw new NotFoundCustomException("La entidad con dicho ID no existe en la BD");
         }
 
     }
@@ -73,7 +73,7 @@ public class DockerServiceImpl implements DockerService{
             dockerRepository.deleteById(id);
             return "El ID" + id + " ha sido eliminado exitosamente" ;
         }else{
-            throw new EntityNotFoundException("La entidad con dicho ID no existe en la BD");
+            throw new NotFoundCustomException("La entidad con dicho ID no existe en la BD");
         }
     }
 }
