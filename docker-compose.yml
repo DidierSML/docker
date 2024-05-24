@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: my_app_docker:1.1
     ports:
       - "8080:8080"
     environment:
